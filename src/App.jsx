@@ -16,6 +16,7 @@ function App() {
 
         <Route path="/products-list" element={<ProductsPage />} />
         <Route path="/confirm-cart" element={<BookingPage />} />
+        
         <Route path="/bvr-login" element={<LoginNewPage />} />
         {/* <Route path="/bvr_super_admin" element={<BvrSuperAdminApp />} /> */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />

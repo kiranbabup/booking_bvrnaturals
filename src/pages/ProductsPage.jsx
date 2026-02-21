@@ -93,7 +93,8 @@ const ProductsPage = () => {
               <Card sx={{ bgcolor: "#1c1c1e" }}>
                 <CardMedia
                   component="img"
-                  height="250"
+                  // height="400"
+                  sx={{ width: { md: "580px" }}}
                   image={p.image}
                   alt={p.title}
                 />

@@ -38,10 +38,13 @@ const BookingPage = () => {
   }, []);
 
   useEffect(() => {
+    console.log(cart);
+
     const arr = Object.values(cart || {}).map((it) => ({
       id: it.id,
       title: it.title,
       price: it.price,
+      wgt: it.wgt || 0,
       qty: it.qty || 0,
       amount: (it.qty || 0) * it.price,
     }));
@@ -167,8 +170,8 @@ const BookingPage = () => {
       <Box sx={{ width: "100%", overflowX: "auto", mb: 1 }}>
         <Box
           sx={{
-            display: { xs: 'none', md: 'grid' },
-            gridTemplateColumns: "40px 1fr 120px 140px 120px",
+            display: { xs: "none", md: "grid" },
+            gridTemplateColumns: "40px 1fr 120px 140px 120px 120px",
             gap: 2,
             p: 1,
             alignItems: "center",
@@ -180,6 +183,7 @@ const BookingPage = () => {
           <Typography sx={{ fontWeight: 700 }}>Product Name</Typography>
           <Typography sx={{ fontWeight: 700 }}>Price</Typography>
           <Typography sx={{ fontWeight: 700 }}>Quantity</Typography>
+          <Typography sx={{ fontWeight: 700 }}>Weight</Typography>
           <Typography sx={{ fontWeight: 700 }}>Amount</Typography>
         </Box>
 
@@ -188,27 +192,50 @@ const BookingPage = () => {
             {/* Mobile card view */}
             <Box
               sx={{
-                display: { xs: 'block', md: 'none' },
+                display: { xs: "block", md: "none" },
                 p: 1,
-                bgcolor: '#121212',
+                bgcolor: "#121212",
                 borderRadius: 1,
               }}
             >
-              <Typography sx={{ fontWeight: 700 }}>{idx + 1}. {it.title}</Typography>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
-                <Typography sx={{ color: '#ccc' }}>Price:</Typography>
+              <Typography sx={{ fontWeight: 700 }}>
+                {idx + 1}. {it.title}
+              </Typography>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}
+              >
+                <Typography sx={{ color: "#ccc" }}>Price:</Typography>
                 <Typography>₹ {it.price}</Typography>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: '#ccc' }}>Quantity:</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <IconButton sx={{ color: '#fff' }} onClick={() => dec(it.id)}><RemoveIcon /></IconButton>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 1,
+                  alignItems: "center",
+                }}
+              >
+                <Typography sx={{ color: "#ccc" }}>Quantity:</Typography>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <IconButton sx={{ color: "#fff" }} onClick={() => dec(it.id)}>
+                    <RemoveIcon />
+                  </IconButton>
                   <Typography sx={{ mx: 1 }}>{it.qty}</Typography>
-                  <IconButton sx={{ color: '#fff' }} onClick={() => inc(it.id)}><AddIcon /></IconButton>
+                  <IconButton sx={{ color: "#fff" }} onClick={() => inc(it.id)}>
+                    <AddIcon />
+                  </IconButton>
                 </Box>
               </Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
-                <Typography sx={{ color: '#ccc' }}>Amount:</Typography>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}
+              >
+                <Typography sx={{ color: "#ccc" }}>Weight:</Typography>
+                <Typography>{it.wgt * it.qty} ml</Typography>
+              </Box>
+              <Box
+                sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}
+              >
+                <Typography sx={{ color: "#ccc" }}>Amount:</Typography>
                 <Typography>₹ {it.amount}</Typography>
               </Box>
             </Box>
@@ -216,26 +243,27 @@ const BookingPage = () => {
             {/* Desktop row view */}
             <Box
               sx={{
-                display: { xs: 'none', md: 'grid' },
-                gridTemplateColumns: "40px 1fr 120px 140px 120px",
+                display: { xs: "none", md: "grid" },
+                gridTemplateColumns: "40px 1fr 120px 140px 120px 120px",
                 gap: 2,
                 p: 1,
-                alignItems: 'center',
-                borderBottom: '1px solid #222',
+                alignItems: "center",
+                borderBottom: "1px solid #222",
               }}
             >
               <Typography>{idx + 1}</Typography>
               <Typography>{it.title}</Typography>
               <Typography>₹ {it.price}</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <IconButton sx={{ color: '#fff' }} onClick={() => dec(it.id)}>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+                <IconButton sx={{ color: "#fff" }} onClick={() => dec(it.id)}>
                   <RemoveIcon />
                 </IconButton>
                 <Typography sx={{ mx: 1 }}>{it.qty}</Typography>
-                <IconButton sx={{ color: '#fff' }} onClick={() => inc(it.id)}>
+                <IconButton sx={{ color: "#fff" }} onClick={() => inc(it.id)}>
                   <AddIcon />
                 </IconButton>
               </Box>
+              <Typography>{it.wgt * it.qty} ml</Typography>
               <Typography>₹ {it.amount}</Typography>
             </Box>
           </Box>
